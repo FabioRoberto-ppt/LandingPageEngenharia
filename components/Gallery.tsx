@@ -5,24 +5,20 @@ import { useState, useRef, useCallback } from "react";
 const projects = [
   {
     title: "Reforma Residencial Premium",
-    before:
-      "https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?w=800&h=600&fit=crop",
-    after:
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
+    before: "/images/CasaFinal1.jpeg",
+    after:  "/images/CasaComeco1.jpeg",
   },
   {
     title: "Construção Comercial",
-    before:
-      "https://images.unsplash.com/photo-1590496793907-4fde2380ac44?w=800&h=600&fit=crop",
-    after:
-      "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop",
+    before: "/images/CasaFinal2.jpeg",
+    after:  "/images/CasaComeco2.jpeg",
   },
   {
     title: "Modernização de Fachada",
     before:
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop",
+      "/images/CasaFinal3.jpeg",
     after:
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop",
+      "/images/CasaComeco3.jpeg",
   },
 ];
 
