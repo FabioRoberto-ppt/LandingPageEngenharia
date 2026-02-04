@@ -4,13 +4,19 @@ import { useState, useEffect, useRef } from "react";
 import * as THREE from "three";
 
 export default function ConstructionProcess() {
-  const [progress, setProgress] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-  const sectionRef = useRef(null);
-  const canvasRef = useRef(null);
-  const stagesRef = useRef({});
-  const rendererRef = useRef(null);
-  const sceneRef = useRef(null);
+  const [progress, setProgress] = useState<number>(0);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const stagesRef = useRef<{
+    foundation?: THREE.Group;
+    groundFloor?: THREE.Group;
+    secondFloor?: THREE.Group;
+    roof?: THREE.Group;
+    lightsGroup?: THREE.Group;
+  }>({});
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const sceneRef = useRef<THREE.Scene | null>(null);
 
   // Detectar tamanho da tela
   useEffect(() => {
@@ -213,7 +219,7 @@ export default function ConstructionProcess() {
     }
 
     // Trees
-    const createTree = (x, z, height = 2.5) => {
+    const createTree = (x: number, z: number, height: number = 2.5): THREE.Group => {
       const group = new THREE.Group();
       
       const trunk = new THREE.Mesh(
@@ -264,7 +270,7 @@ export default function ConstructionProcess() {
     foundation.add(gardenBed2);
 
     // Bushes
-    const createBush = (x, z, size = 0.4) => {
+    const createBush = (x: number, z: number, size: number = 0.4): THREE.Mesh => {
       const bush = new THREE.Mesh(
         new THREE.SphereGeometry(size, 8, 6),
         new THREE.MeshStandardMaterial({ color: 0x1a4d0a, roughness: 0.9 })
@@ -286,7 +292,7 @@ export default function ConstructionProcess() {
       roughness: 0.85,
     });
 
-    const stonePositions = [
+    const stonePositions: [number, number, number][] = [
       [-3.5, 0.05, 2.5],
       [-2.8, 0.05, 2.5],
       [-2.1, 0.05, 2.5],
@@ -432,7 +438,7 @@ export default function ConstructionProcess() {
     groundFloor.add(doorbell);
 
     // House numbers
-    const createNumber = (x, y) => {
+    const createNumber = (x: number, y: number): THREE.Mesh => {
       const num = new THREE.Mesh(
         new THREE.BoxGeometry(0.15, 0.2, 0.02),
         new THREE.MeshStandardMaterial({ color: 0xd4af37, roughness: 0.2, metalness: 0.9 })
@@ -501,7 +507,7 @@ export default function ConstructionProcess() {
     secondFloor.add(rightWall2);
 
     // === WINDOWS ===
-    const createWindow = (width, height, x, y, z) => {
+    const createWindow = (width: number, height: number, x: number, y: number, z: number): THREE.Group => {
       const group = new THREE.Group();
       
       const glass = new THREE.Mesh(
@@ -653,7 +659,7 @@ export default function ConstructionProcess() {
     const lightsGroup = new THREE.Group();
     lightsGroup.name = "lightsGroup";
 
-    const lightPositions = [
+    const lightPositions: [number, number, number][] = [
       [-2.5, 7.6, 2.5],
       [0, 7.6, 2.5],
       [2.5, 7.6, 2.5],
@@ -686,7 +692,7 @@ export default function ConstructionProcess() {
     stagesRef.current.lightsGroup = lightsGroup;
 
     // Animation loop
-    let animationId;
+    let animationId: number;
     const clock = new THREE.Clock();
     
     const animate = () => {
@@ -738,14 +744,16 @@ export default function ConstructionProcess() {
       
       if (sceneRef.current) {
         sceneRef.current.traverse((object) => {
-          if (object.geometry) {
-            object.geometry.dispose();
-          }
-          if (object.material) {
-            if (Array.isArray(object.material)) {
-              object.material.forEach(material => material.dispose());
-            } else {
-              object.material.dispose();
+          if (object instanceof THREE.Mesh) {
+            if (object.geometry) {
+              object.geometry.dispose();
+            }
+            if (object.material) {
+              if (Array.isArray(object.material)) {
+                object.material.forEach(material => material.dispose());
+              } else {
+                object.material.dispose();
+              }
             }
           }
         });
@@ -755,7 +763,7 @@ export default function ConstructionProcess() {
 
   // Update visibility based on scroll
   useEffect(() => {
-    const lerp = (a, b, t) => a + (b - a) * Math.max(0, Math.min(1, t));
+    const lerp = (a: number, b: number, t: number): number => a + (b - a) * Math.max(0, Math.min(1, t));
 
     const foundationOpacity = lerp(0, 1, (progress - 0.0) / 0.2);
     const wallsOpacity = lerp(0, 1, (progress - 0.2) / 0.25);
@@ -763,27 +771,27 @@ export default function ConstructionProcess() {
     const roofOpacity = lerp(0, 1, (progress - 0.7) / 0.15);
     const lightsOpacity = lerp(0, 1, (progress - 0.85) / 0.15);
 
-    const updateStage = (stage, opacity) => {
+    const updateStage = (stage: THREE.Group | undefined, opacity: number) => {
       if (!stage) return;
       stage.visible = opacity > 0.01;
-      stage.traverse(child => {
-        if (child.material) {
-          if (Array.isArray(child.material)) {
-            child.material.forEach(mat => {
-              mat.transparent = true;
-              mat.opacity = opacity;
-              mat.needsUpdate = true;
-            });
-          } else {
-            child.material.transparent = true;
-            child.material.opacity = opacity;
-            child.material.needsUpdate = true;
+      stage.traverse((child) => {
+        if (child instanceof THREE.Mesh) {
+          if (child.material) {
+            if (Array.isArray(child.material)) {
+              child.material.forEach((mat) => {
+                mat.transparent = true;
+                mat.opacity = opacity;
+                mat.needsUpdate = true;
+              });
+            } else {
+              child.material.transparent = true;
+              child.material.opacity = opacity;
+              child.material.needsUpdate = true;
+            }
           }
         }
-        if (child.intensity !== undefined) {
-          child.intensity = child.userData.baseIntensity 
-            ? child.userData.baseIntensity * opacity 
-            : opacity;
+        if (child instanceof THREE.Light && child.userData.baseIntensity !== undefined) {
+          child.intensity = child.userData.baseIntensity * opacity;
         }
       });
     };
