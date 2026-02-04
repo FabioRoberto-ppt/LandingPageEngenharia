@@ -11,7 +11,7 @@ const projects = [
   {
     title: "Construção Comercial",
     before: "/images/CasaComeco2.jpeg",
-    after:  "/images/CasaFinal2.jpeg",
+    after:  "/images/CasaFinall.jpeg",
   },
   {
     title: "Modernização de Fachada",
