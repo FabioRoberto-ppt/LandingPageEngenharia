@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 
 const projects = [
   {
@@ -15,10 +15,8 @@ const projects = [
   },
   {
     title: "Modernização de Fachada",
-    before:
-      "/images/CasaFinal3.jpeg",
-    after:
-      "/images/CasaComeco3.jpeg",
+    before: "/images/CasaFinal3.jpeg",
+    after: "/images/CasaComeco3.jpeg",
   },
 ];
 
@@ -30,41 +28,47 @@ export default function Gallery() {
   const updatePercent = useCallback((index: number, clientX: number) => {
     const el = sliderRefs.current[index];
     if (!el) return;
+    
     const rect = el.getBoundingClientRect();
-    const pos = Math.max(0, Math.min(clientX - rect.left, rect.width));
+    const x = clientX - rect.left;
+    
+    // Clampar entre 0 e largura total
+    const clampedX = Math.max(0, Math.min(x, rect.width));
+    const newPercent = (clampedX / rect.width) * 100;
+    
     setPercents((prev) => {
       const next = [...prev];
-      next[index] = (pos / rect.width) * 100;
+      next[index] = newPercent;
       return next;
     });
   }, []);
 
-  const onMouseDown = useCallback((index: number) => {
+  const onPointerDown = useCallback((index: number, e: React.PointerEvent) => {
     isDragging.current = index;
-  }, []);
-
-  const onMouseMove = useCallback((e: React.MouseEvent, index: number) => {
-    if (isDragging.current === index) updatePercent(index, e.clientX);
+    const target = e.currentTarget as HTMLElement;
+    target.setPointerCapture(e.pointerId);
+    updatePercent(index, e.clientX);
   }, [updatePercent]);
 
-  const onMouseUp = useCallback(() => {
-    isDragging.current = null;
-  }, []);
-
-  const onTouchStart = useCallback((e: React.TouchEvent, index: number) => {
-    isDragging.current = index;
-    e.preventDefault();
-  }, []);
-
-  const onTouchMove = useCallback((e: React.TouchEvent, index: number) => {
+  const onPointerMove = useCallback((e: React.PointerEvent, index: number) => {
     if (isDragging.current === index) {
-      updatePercent(index, e.touches[0].clientX);
-      e.preventDefault();
+      updatePercent(index, e.clientX);
     }
   }, [updatePercent]);
 
-  const onTouchEnd = useCallback(() => {
-    isDragging.current = null;
+  const onPointerUp = useCallback((e: React.PointerEvent) => {
+    if (isDragging.current !== null) {
+      const target = e.currentTarget as HTMLElement;
+      target.releasePointerCapture(e.pointerId);
+      isDragging.current = null;
+    }
+  }, []);
+
+  // Cleanup em caso de unmount durante drag
+  useEffect(() => {
+    return () => {
+      isDragging.current = null;
+    };
   }, []);
 
   return (
@@ -80,30 +84,46 @@ export default function Gallery() {
             <div
               className="comparison-slider"
               ref={(el) => { sliderRefs.current[i] = el; }}
-              onMouseMove={(e) => onMouseMove(e, i)}
-              onMouseUp={onMouseUp}
-              onMouseLeave={onMouseUp}
+              onPointerMove={(e) => onPointerMove(e, i)}
+              onPointerUp={onPointerUp}
+              onPointerLeave={onPointerUp}
             >
-              <img src={project.before} alt="Antes" className="comparison-image before-image" />
-
-              <img
-                src={project.after}
-                alt="Depois"
-                className="comparison-image after-image"
-                style={{ clipPath: `inset(0 ${100 - percents[i]}% 0 0)` }}
+              {/* Imagem "Antes" (fica atrás) */}
+              <img 
+                src={project.before} 
+                alt="Antes" 
+                className="comparison-image before-image"
+                draggable={false}
               />
 
+              {/* Imagem "Depois" (fica na frente com clip) */}
+              <div 
+                className="after-container"
+                style={{ 
+                  width: `${percents[i]}%`,
+                }}
+              >
+                <img
+                  src={project.after}
+                  alt="Depois"
+                  className="comparison-image after-image"
+                  draggable={false}
+                  style={{
+                    width: `${sliderRefs.current[i]?.getBoundingClientRect().width || 1000}px`,
+                  }}
+                />
+              </div>
+
+              {/* Linha divisória com handle */}
               <div
                 className="slider-line"
                 style={{ left: `${percents[i]}%` }}
-                onMouseDown={() => onMouseDown(i)}
-                onTouchStart={(e) => onTouchStart(e, i)}
-                onTouchMove={(e) => onTouchMove(e, i)}
-                onTouchEnd={onTouchEnd}
+                onPointerDown={(e) => onPointerDown(i, e)}
               >
                 <div className="slider-handle">⟷</div>
               </div>
 
+              {/* Labels */}
               <span className="slider-label label-before">Antes</span>
               <span className="slider-label label-after">Depois</span>
             </div>
@@ -179,35 +199,79 @@ export default function Gallery() {
           overflow: hidden;
           user-select: none;
           -webkit-user-select: none;
+          touch-action: none;
         }
 
         .comparison-image {
           position: absolute;
-          top: 0; left: 0;
+          top: 0;
+          left: 0;
           width: 100%;
           height: 100%;
           object-fit: cover;
+          pointer-events: none;
+          user-select: none;
+          -webkit-user-drag: none;
         }
-        .before-image { z-index: 1; }
-        .after-image  { z-index: 2; }
+
+        .before-image { 
+          z-index: 1; 
+        }
+
+        .after-container {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          z-index: 2;
+          overflow: hidden;
+          will-change: width;
+        }
+
+        .after-image {
+          height: 100%;
+          object-fit: cover;
+        }
 
         .slider-line {
           position: absolute;
           top: 0;
-          width: 3px;
+          width: 4px;
           height: 100%;
           background: #d4af37;
           z-index: 3;
           cursor: ew-resize;
           box-shadow: 0 0 20px rgba(212,175,55,0.5);
           transform: translateX(-50%);
+          will-change: left;
+        }
+
+        .slider-line::before,
+        .slider-line::after {
+          content: '';
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 2px;
+          height: 30px;
+          background: #d4af37;
+        }
+
+        .slider-line::before {
+          top: 0;
+        }
+
+        .slider-line::after {
+          bottom: 0;
         }
 
         .slider-handle {
           position: absolute;
-          top: 50%; left: 50%;
-          transform: translate(-50%,-50%);
-          width: 50px; height: 50px;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 50px;
+          height: 50px;
           background: linear-gradient(135deg, #d4af37, #b8941e);
           border-radius: 50%;
           display: flex;
@@ -215,9 +279,23 @@ export default function Gallery() {
           justify-content: center;
           color: #0a0a0a;
           font-weight: bold;
-          font-size: 1.2rem;
-          box-shadow: 0 4px 20px rgba(212,175,55,0.6);
+          font-size: 1.4rem;
+          box-shadow: 
+            0 4px 20px rgba(212,175,55,0.6),
+            0 0 0 3px rgba(10, 10, 10, 0.3);
           cursor: ew-resize;
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .slider-handle:hover {
+          transform: translate(-50%, -50%) scale(1.1);
+          box-shadow: 
+            0 6px 25px rgba(212,175,55,0.8),
+            0 0 0 3px rgba(10, 10, 10, 0.3);
+        }
+
+        .slider-handle:active {
+          transform: translate(-50%, -50%) scale(0.95);
         }
 
         .slider-label {
@@ -227,19 +305,56 @@ export default function Gallery() {
           font-size: 0.9rem;
           font-weight: 600;
           padding: 0.5rem 1rem;
-          background: rgba(10,10,10,0.8);
+          background: rgba(10,10,10,0.85);
           color: #d4af37;
           z-index: 4;
           text-transform: uppercase;
           letter-spacing: 0.1em;
           border: 1px solid rgba(212,175,55,0.3);
+          backdrop-filter: blur(4px);
+          pointer-events: none;
         }
         .label-before { left: 20px; }
         .label-after  { right: 20px; }
 
         @media (max-width: 768px) {
-          .gallery-container { grid-template-columns: 1fr; }
-          .comparison-slider { height: 300px; }
+          .gallery-section {
+            padding: 4rem 1rem;
+          }
+          
+          .gallery-container { 
+            grid-template-columns: 1fr;
+            gap: 2rem;
+          }
+          
+          .comparison-slider { 
+            height: 300px;
+          }
+
+          .slider-handle {
+            width: 46px;
+            height: 46px;
+            font-size: 1.2rem;
+          }
+
+          .slider-label {
+            font-size: 0.75rem;
+            padding: 0.4rem 0.8rem;
+          }
+
+          .label-before { left: 10px; top: 10px; }
+          .label-after  { right: 10px; top: 10px; }
+        }
+
+        @media (max-width: 480px) {
+          .comparison-slider { 
+            height: 250px;
+          }
+
+          .project-title {
+            font-size: 1.2rem;
+            padding: 1rem;
+          }
         }
       `}</style>
     </section>
