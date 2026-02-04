@@ -5,18 +5,18 @@ import { useState, useRef, useCallback, useEffect } from "react";
 const projects = [
   {
     title: "Reforma Residencial Premium",
-    before: "/images/CasaFinal1.jpeg",
-    after:  "/images/CasaComeco1.jpeg",
+    before: "/images/CasaComeco1.jpeg",
+    after:  "/images/CasaFinal1.jpeg",
   },
   {
     title: "Construção Comercial",
-    before: "/images/CasaFinal2.jpeg",
-    after:  "/images/CasaComeco2.jpeg",
+    before: "/images/CasaComeco2.jpeg",
+    after:  "/images/CasaFinal2.jpeg",
   },
   {
     title: "Modernização de Fachada",
-    before: "/images/CasaFinal3.jpeg",
-    after: "/images/CasaComeco3.jpeg",
+    before: "/images/CasaComeco3.jpeg",
+    after: "/images/CasaFinal3.jpeg",
   },
 ];
 
@@ -88,29 +88,26 @@ export default function Gallery() {
               onPointerUp={onPointerUp}
               onPointerLeave={onPointerUp}
             >
-              {/* Imagem "Antes" (fica atrás) */}
+              {/* Imagem "Depois" (fica atrás) */}
               <img 
-                src={project.before} 
-                alt="Antes" 
-                className="comparison-image before-image"
+                src={project.after} 
+                alt="Depois" 
+                className="comparison-image after-image-bg"
                 draggable={false}
               />
 
-              {/* Imagem "Depois" (fica na frente com clip) */}
+              {/* Imagem "Antes" (fica na frente com clip) */}
               <div 
-                className="after-container"
+                className="before-container"
                 style={{ 
-                  width: `${percents[i]}%`,
+                  clipPath: `inset(0 ${100 - percents[i]}% 0 0)`,
                 }}
               >
                 <img
-                  src={project.after}
-                  alt="Depois"
-                  className="comparison-image after-image"
+                  src={project.before}
+                  alt="Antes"
+                  className="comparison-image before-image"
                   draggable={false}
-                  style={{
-                    width: `${sliderRefs.current[i]?.getBoundingClientRect().width || 1000}px`,
-                  }}
                 />
               </div>
 
@@ -214,21 +211,23 @@ export default function Gallery() {
           -webkit-user-drag: none;
         }
 
-        .before-image { 
+        .after-image-bg { 
           z-index: 1; 
         }
 
-        .after-container {
+        .before-container {
           position: absolute;
           top: 0;
           left: 0;
+          width: 100%;
           height: 100%;
           z-index: 2;
-          overflow: hidden;
-          will-change: width;
+          will-change: clip-path;
         }
 
-        .after-image {
+        .before-image {
+          position: relative;
+          width: 100%;
           height: 100%;
           object-fit: cover;
         }
