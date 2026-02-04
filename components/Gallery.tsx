@@ -22,7 +22,6 @@ const projects = [
 
 export default function Gallery() {
   const [percents, setPercents] = useState([50, 50, 50]);
-  const [containerWidths, setContainerWidths] = useState<number[]>([0, 0, 0]);
   const sliderRefs = useRef<(HTMLDivElement | null)[]>([]);
   const isDragging = useRef<number | null>(null);
 
@@ -33,7 +32,6 @@ export default function Gallery() {
     const rect = el.getBoundingClientRect();
     const x = clientX - rect.left;
     
-    // Clampar entre 0 e largura total
     const clampedX = Math.max(0, Math.min(x, rect.width));
     const newPercent = (clampedX / rect.width) * 100;
     
@@ -65,24 +63,10 @@ export default function Gallery() {
     }
   }, []);
 
-  // Cleanup em caso de unmount durante drag
   useEffect(() => {
     return () => {
       isDragging.current = null;
     };
-  }, []);
-
-  // Capturar larguras dos containers
-  useEffect(() => {
-    const updateWidths = () => {
-      const widths = sliderRefs.current.map(ref => ref?.offsetWidth || 0);
-      setContainerWidths(widths);
-    };
-    
-    updateWidths();
-    window.addEventListener('resize', updateWidths);
-    
-    return () => window.removeEventListener('resize', updateWidths);
   }, []);
 
   return (
@@ -102,29 +86,26 @@ export default function Gallery() {
               onPointerUp={onPointerUp}
               onPointerLeave={onPointerUp}
             >
-              {/* Imagem "Depois" (fica atrás) */}
-              <img 
-                src={project.after} 
-                alt="Depois" 
-                className="comparison-image after-image-bg"
-                draggable={false}
-              />
+              {/* Camada base: Imagem "Depois" */}
+              <div className="image-layer base-layer">
+                <img 
+                  src={project.after} 
+                  alt="Depois" 
+                  draggable={false}
+                />
+              </div>
 
-              {/* Imagem "Antes" (fica na frente com largura controlada) */}
+              {/* Camada superior: Imagem "Antes" com clip-path */}
               <div 
-                className="before-container"
+                className="image-layer top-layer"
                 style={{ 
-                  width: `${percents[i]}%`,
+                  clipPath: `polygon(0 0, ${percents[i]}% 0, ${percents[i]}% 100%, 0 100%)`,
                 }}
               >
                 <img
                   src={project.before}
                   alt="Antes"
-                  className="comparison-image before-image"
                   draggable={false}
-                  style={{
-                    width: containerWidths[i] || '100%',
-                  }}
                 />
               </div>
 
@@ -216,35 +197,30 @@ export default function Gallery() {
           touch-action: none;
         }
 
-        .comparison-image {
+        .image-layer {
           position: absolute;
           top: 0;
           left: 0;
+          width: 100%;
+          height: 100%;
+        }
+
+        .image-layer img {
           width: 100%;
           height: 100%;
           object-fit: cover;
           pointer-events: none;
           user-select: none;
           -webkit-user-drag: none;
+          display: block;
         }
 
-        .after-image-bg { 
-          z-index: 1; 
+        .base-layer {
+          z-index: 1;
         }
 
-        .before-container {
-          position: absolute;
-          top: 0;
-          left: 0;
-          height: 100%;
+        .top-layer {
           z-index: 2;
-          overflow: hidden;
-          will-change: width;
-        }
-
-        .before-image {
-          height: 100%;
-          object-fit: cover;
         }
 
         .slider-line {
