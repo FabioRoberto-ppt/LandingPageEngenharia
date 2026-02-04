@@ -5,10 +5,12 @@ import ConstructionProcess from "@/components/ConstructionProcess";
 import Gallery from "@/components/Gallery";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 
 export default function Home() {
   return (
     <main>
+      <Header />
       <WhatsAppButton />
       <Hero />
       <ConstructionProcess />
