@@ -22,6 +22,7 @@ const projects = [
 
 export default function Gallery() {
   const [percents, setPercents] = useState([50, 50, 50]);
+  const [containerWidths, setContainerWidths] = useState<number[]>([0, 0, 0]);
   const sliderRefs = useRef<(HTMLDivElement | null)[]>([]);
   const isDragging = useRef<number | null>(null);
 
@@ -71,6 +72,19 @@ export default function Gallery() {
     };
   }, []);
 
+  // Capturar larguras dos containers
+  useEffect(() => {
+    const updateWidths = () => {
+      const widths = sliderRefs.current.map(ref => ref?.offsetWidth || 0);
+      setContainerWidths(widths);
+    };
+    
+    updateWidths();
+    window.addEventListener('resize', updateWidths);
+    
+    return () => window.removeEventListener('resize', updateWidths);
+  }, []);
+
   return (
     <section className="gallery-section" id="galeria">
       <h2 className="section-title">Antes &amp; Depois</h2>
@@ -96,11 +110,11 @@ export default function Gallery() {
                 draggable={false}
               />
 
-              {/* Imagem "Antes" (fica na frente com clip) */}
+              {/* Imagem "Antes" (fica na frente com largura controlada) */}
               <div 
                 className="before-container"
                 style={{ 
-                  clipPath: `inset(0 ${100 - percents[i]}% 0 0)`,
+                  width: `${percents[i]}%`,
                 }}
               >
                 <img
@@ -108,6 +122,9 @@ export default function Gallery() {
                   alt="Antes"
                   className="comparison-image before-image"
                   draggable={false}
+                  style={{
+                    width: containerWidths[i] || '100%',
+                  }}
                 />
               </div>
 
@@ -219,15 +236,13 @@ export default function Gallery() {
           position: absolute;
           top: 0;
           left: 0;
-          width: 100%;
           height: 100%;
           z-index: 2;
-          will-change: clip-path;
+          overflow: hidden;
+          will-change: width;
         }
 
         .before-image {
-          position: relative;
-          width: 100%;
           height: 100%;
           object-fit: cover;
         }
