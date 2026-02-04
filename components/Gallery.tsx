@@ -88,29 +88,26 @@ export default function Gallery() {
               onPointerUp={onPointerUp}
               onPointerLeave={onPointerUp}
             >
-              {/* Imagem "Antes" (fica atrás, à esquerda) */}
+              {/* Imagem "Depois" (fica atrás) */}
               <img 
-                src={project.before} 
-                alt="Antes" 
-                className="comparison-image before-image-bg"
+                src={project.after} 
+                alt="Depois" 
+                className="comparison-image after-image-bg"
                 draggable={false}
               />
 
-              {/* Imagem "Depois" (fica na frente, revelada da direita) */}
+              {/* Imagem "Antes" (fica na frente com clip) */}
               <div 
-                className="after-container"
+                className="before-container"
                 style={{ 
-                  width: `${percents[i]}%`,
+                  clipPath: `inset(0 ${100 - percents[i]}% 0 0)`,
                 }}
               >
                 <img
-                  src={project.after}
-                  alt="Depois"
-                  className="comparison-image after-image"
+                  src={project.before}
+                  alt="Antes"
+                  className="comparison-image before-image"
                   draggable={false}
-                  style={{
-                    width: sliderRefs.current[i] ? `${sliderRefs.current[i]!.offsetWidth}px` : '100%',
-                  }}
                 />
               </div>
 
@@ -214,21 +211,23 @@ export default function Gallery() {
           -webkit-user-drag: none;
         }
 
-        .before-image-bg { 
+        .after-image-bg { 
           z-index: 1; 
         }
 
-        .after-container {
+        .before-container {
           position: absolute;
           top: 0;
           left: 0;
+          width: 100%;
           height: 100%;
           z-index: 2;
-          overflow: hidden;
-          will-change: width;
+          will-change: clip-path;
         }
 
-        .after-image {
+        .before-image {
+          position: relative;
+          width: 100%;
           height: 100%;
           object-fit: cover;
         }
