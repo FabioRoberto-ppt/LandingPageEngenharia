@@ -161,7 +161,7 @@ export default function Hero() {
         <div className="logo-wrapper">
           <img
             ref={logoRef}
-            src="/images/logo2.svg"
+            src="/images/Logo2.svg"
             alt="Herbert Soares - Engenharia e Construção"
             className="logo-img"
             onMouseMove={handleMouseMove}
