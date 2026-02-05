@@ -81,14 +81,6 @@ export default function Header() {
           </Link>
           
           <Link 
-            href="/projetos" 
-            className={isActive("/projetos") ? "active" : ""}
-            onClick={(e) => handleNavClick(e, "/projetos")}
-          >
-            Projetos
-          </Link>
-          
-          <Link 
             href="#contato" 
             className="nav-cta"
             onClick={(e) => handleNavClick(e, "#contato")}
@@ -98,7 +90,7 @@ export default function Header() {
 
           <div className="social-links">
             <a 
-              href="https://wa.me/5511999999999" 
+              href="https://wa.me/5511981705658" 
               target="_blank" 
               rel="noopener noreferrer"
               className="social-icon whatsapp"
