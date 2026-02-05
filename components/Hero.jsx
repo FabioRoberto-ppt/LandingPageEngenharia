@@ -176,7 +176,7 @@ export default function Hero() {
           />
         </div>
 
-        <p className="subtitle">Transformando Projetos em Realizações de Excelência</p>
+        <p className="subtitle">Gerenciando obras com foco em resultado</p>
 
         <a
           href="#galeria"
@@ -186,7 +186,7 @@ export default function Hero() {
             document.querySelector("#galeria")?.scrollIntoView({ behavior: "smooth", block: "start" });
           }}
         >
-          Conheça Nossos Projetos
+          Conheça Nossas Obras
         </a>
       </div>
 

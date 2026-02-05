@@ -80,13 +80,15 @@ export default function Header() {
             Serviços
           </Link>
           
-          <Link 
-            href="#contato" 
+          <a 
+            href="https://wa.me/5511981705658" 
+            target="_blank" 
+            rel="noopener noreferrer"
             className="nav-cta"
-            onClick={(e) => handleNavClick(e, "#contato")}
+            onClick={() => setMobileMenuOpen(false)}
           >
             Contato
-          </Link>
+          </a>
 
           <div className="social-links">
             <a 

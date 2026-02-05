@@ -135,7 +135,12 @@ export default function Servicos() {
               <div className="cta-content">
                 <h2>Precisa de um orçamento?</h2>
                 <p>Entre em contato e receba uma proposta personalizada para seu projeto</p>
-                <a href="#contato" className="cta-button">
+                <a 
+                  href="https://wa.me/5511981705658" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="cta-button"
+                >
                   Solicitar Orçamento
                 </a>
               </div>

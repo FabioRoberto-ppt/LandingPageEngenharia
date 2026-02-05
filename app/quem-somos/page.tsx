@@ -23,7 +23,7 @@ export default function QuemSomos() {
               <div className="text-content">
                 <h2>Nossa História</h2>
                 <p>
-                  A Herbert Soares Engenharia nasceu de uma trajetória construída 
+                  HBT Engenharia e construções nasceu de uma trajetória construída 
                   desde cedo. Aos 15 anos, iniciei minha vida profissional em obras 
                   ao lado do meu pai, pedreiro, aprendendo a importância do detalhe, 
                   da responsabilidade e do compromisso com o cliente.
