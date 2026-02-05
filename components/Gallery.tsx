@@ -5,18 +5,18 @@ import { useState, useRef, useCallback, useEffect } from "react";
 const projects = [
   {
     title: "Reforma Residencial Premium",
-    before: "/images/CasaComeco1.jpeg",
-    after:  "/images/CasaFinal1.jpeg",
+    before: "/images/Tambore1040.jpeg",
+    after:  "/images/Tambore1040Final.jpeg",
   },
   {
     title: "Construção Comercial",
-    before: "/images/CasaComeco2.jpeg",
-    after:  "/images/CasaFinall.jpeg",
+    before: "/images/Tambore10.jpeg",
+    after:  "/images/Tambore10final.jpeg",
   },
   {
     title: "Modernização de Fachada",
-    before: "/images/CasaComeco3.jpeg",
-    after: "/images/CasaFinal3.jpeg",
+    before: "/images/Tambore10454.jpeg",
+    after: "/images/Tambore10454Final.jpeg",
   },
 ];
 

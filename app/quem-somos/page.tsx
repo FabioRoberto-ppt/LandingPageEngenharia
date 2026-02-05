@@ -11,7 +11,7 @@ export default function QuemSomos() {
         <section className="quem-somos-hero">
           <div className="container">
             <h1 className="title">Quem Somos</h1>
-            <p className="subtitle">Excelência em engenharia e construção civil</p>
+            <p className="subtitle">Da prática no canteiro à gestão técnica</p>
           </div>
         </section>
 
@@ -21,29 +21,81 @@ export default function QuemSomos() {
               <div className="text-content">
                 <h2>Nossa História</h2>
                 <p>
-                  A Herbert Soares Engenharia é uma empresa especializada em soluções 
-                  completas de engenharia civil e construção. Com anos de experiência 
-                  no mercado, nos consolidamos como referência em qualidade e inovação.
+                  A Herbert Soares Engenharia nasceu de uma trajetória construída 
+                  desde cedo. Aos 15 anos, iniciei minha vida profissional em obras 
+                  ao lado do meu pai, pedreiro, aprendendo a importância do detalhe, 
+                  da responsabilidade e do compromisso com o cliente.
                 </p>
                 <p>
-                  Nossa equipe é formada por profissionais altamente qualificados, 
-                  comprometidos em entregar projetos que superam as expectativas dos 
-                  nossos clientes.
+                  Essa vivência completa — da base à gestão — moldou minha formação 
+                  profissional. Durante a graduação em Engenharia Civil pela Uninove, 
+                  segui trabalhando em obras, passando por todas as etapas: ajudante, 
+                  meio-oficial, estagiário, encarregado, até atuar como engenheiro civil.
+                </p>
+                <p>
+                  Ao longo dos anos, gerenciei obras comerciais como Ragazzo e Habib's, 
+                  residências de alto padrão no Tamboré 10 (com áreas de até 1.000 m²), 
+                  e projetos desafiadores como a Paparazzi Gold Bar em Osasco e 
+                  residências para investimento em Porangaba.
+                </p>
+                <p>
+                  Em <strong>02 de março de 2023</strong>, fundei oficialmente a 
+                  Herbert Soares Engenharia, consolidando anos de experiência prática 
+                  e técnica em uma empresa dedicada à excelência em cada projeto.
                 </p>
               </div>
 
-              <div className="stats-grid">
-                <div className="stat-card">
-                  <h3>15+</h3>
-                  <p>Anos de Experiência</p>
+              <div className="photo-container">
+                <div className="photo-wrapper">
+                  <img 
+                    src="/images/Hebert.png" 
+                    alt="Herbert Soares - Engenheiro Civil"
+                    className="founder-photo"
+                  />
                 </div>
-                <div className="stat-card">
-                  <h3>200+</h3>
-                  <p>Projetos Concluídos</p>
+              </div>
+            </div>
+
+            <div className="stats-grid">
+              <div className="stat-card">
+                <h3>10+</h3>
+                <p>Anos de Experiência</p>
+              </div>
+              <div className="stat-card">
+                <h3>50+</h3>
+                <p>Projetos Concluídos</p>
+              </div>
+              <div className="stat-card">
+                <h3>100%</h3>
+                <p>Compromisso com Qualidade</p>
+              </div>
+            </div>
+
+            <div className="mission-section">
+              <h2>Nossa Atuação</h2>
+              <div className="mission-grid">
+                <div className="mission-card">
+                  <h3>Gerenciamento de Obras</h3>
+                  <p>
+                    Acompanhamento técnico rigoroso, com controle de cronograma, 
+                    custos, equipes e etapas críticas, sempre em defesa dos 
+                    interesses do cliente.
+                  </p>
                 </div>
-                <div className="stat-card">
-                  <h3>100%</h3>
-                  <p>Satisfação dos Clientes</p>
+                <div className="mission-card">
+                  <h3>Execução Completa</h3>
+                  <p>
+                    Da fundação à finalização, com gestão direta da execução, 
+                    coordenação de equipes e garantia de qualidade em todas 
+                    as etapas.
+                  </p>
+                </div>
+                <div className="mission-card">
+                  <h3>Residências de Médio e Alto Padrão</h3>
+                  <p>
+                    Especialização em projetos residenciais sofisticados, 
+                    com atenção aos detalhes e acabamento de excelência.
+                  </p>
                 </div>
               </div>
             </div>
@@ -54,22 +106,22 @@ export default function QuemSomos() {
                 <div className="value-card">
                   <div className="icon">🎯</div>
                   <h3>Qualidade</h3>
-                  <p>Comprometimento com a excelência em cada projeto</p>
+                  <p>Compromisso com a excelência desde a base até os acabamentos</p>
                 </div>
                 <div className="value-card">
                   <div className="icon">🤝</div>
-                  <h3>Confiança</h3>
-                  <p>Transparência e honestidade em todas as relações</p>
+                  <h3>Transparência</h3>
+                  <p>Organização, controle e comunicação clara em todas as etapas</p>
                 </div>
                 <div className="value-card">
                   <div className="icon">💡</div>
-                  <h3>Inovação</h3>
-                  <p>Tecnologia e métodos modernos de construção</p>
+                  <h3>Experiência Prática</h3>
+                  <p>Conhecimento técnico aliado à vivência real do canteiro de obras</p>
                 </div>
                 <div className="value-card">
                   <div className="icon">⚡</div>
-                  <h3>Eficiência</h3>
-                  <p>Prazos cumpridos e gestão otimizada de recursos</p>
+                  <h3>Responsabilidade</h3>
+                  <p>Gestão eficiente de recursos, prazos e equipes</p>
                 </div>
               </div>
             </div>
@@ -124,7 +176,7 @@ export default function QuemSomos() {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 4rem;
-          margin-bottom: 5rem;
+          margin-bottom: 3rem;
           align-items: center;
         }
 
@@ -141,10 +193,54 @@ export default function QuemSomos() {
           margin-bottom: 1.5rem;
         }
 
+        .photo-container {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .photo-wrapper {
+          position: relative;
+          width: 100%;
+          max-width: 400px;
+          aspect-ratio: 4/5;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: all 0.4s ease;
+        }
+
+        .photo-wrapper:hover {
+          transform: translateY(-5px);
+        }
+
+        .founder-photo {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          display: block;
+          position: relative;
+          z-index: 2;
+          transition: all 0.4s ease;
+          filter: 
+            drop-shadow(0 0 8px rgba(212, 175, 55, 0.6))
+            drop-shadow(0 0 15px rgba(212, 175, 55, 0.4))
+            drop-shadow(0 4px 20px rgba(0, 0, 0, 0.3));
+        }
+
+        .photo-wrapper:hover .founder-photo {
+          filter: 
+            drop-shadow(0 0 12px rgba(212, 175, 55, 0.9))
+            drop-shadow(0 0 25px rgba(212, 175, 55, 0.6))
+            drop-shadow(0 0 40px rgba(212, 175, 55, 0.4))
+            drop-shadow(0 8px 30px rgba(0, 0, 0, 0.4));
+        }
+
         .stats-grid {
           display: grid;
-          grid-template-columns: 1fr;
+          grid-template-columns: repeat(3, 1fr);
           gap: 2rem;
+          margin-bottom: 5rem;
         }
 
         .stat-card {
@@ -152,7 +248,7 @@ export default function QuemSomos() {
             rgba(212, 175, 55, 0.1) 0%,
             rgba(212, 175, 55, 0.05) 100%
           );
-          padding: 2rem;
+          padding: 1.5rem 1rem;
           border-radius: 12px;
           border: 1px solid rgba(212, 175, 55, 0.3);
           text-align: center;
@@ -166,15 +262,60 @@ export default function QuemSomos() {
         }
 
         .stat-card h3 {
-          font-size: 3rem;
+          font-size: 2.5rem;
           color: #D4AF37;
           margin-bottom: 0.5rem;
           font-weight: 700;
         }
 
         .stat-card p {
-          font-size: 1rem;
+          font-size: 0.9rem;
           color: rgba(255, 255, 255, 0.8);
+        }
+
+        .mission-section {
+          margin-bottom: 5rem;
+          padding: 3rem 0;
+        }
+
+        .mission-section h2 {
+          font-size: 2.5rem;
+          color: #D4AF37;
+          text-align: center;
+          margin-bottom: 3rem;
+        }
+
+        .mission-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 2rem;
+        }
+
+        .mission-card {
+          background: rgba(212, 175, 55, 0.05);
+          padding: 2.5rem;
+          border-radius: 12px;
+          border: 1px solid rgba(212, 175, 55, 0.3);
+          transition: all 0.3s ease;
+        }
+
+        .mission-card:hover {
+          transform: translateY(-5px);
+          border-color: #D4AF37;
+          background: rgba(212, 175, 55, 0.08);
+          box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .mission-card h3 {
+          font-size: 1.5rem;
+          color: #D4AF37;
+          margin-bottom: 1rem;
+        }
+
+        .mission-card p {
+          font-size: 1rem;
+          line-height: 1.7;
+          color: rgba(255, 255, 255, 0.85);
         }
 
         .values-section {
@@ -237,6 +378,29 @@ export default function QuemSomos() {
             gap: 3rem;
           }
 
+          .photo-wrapper {
+            max-width: 350px;
+            margin: 0 auto;
+          }
+
+          .stats-grid {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+          }
+
+          .stat-card {
+            padding: 1.2rem 0.8rem;
+          }
+
+          .stat-card h3 {
+            font-size: 2rem;
+          }
+
+          .stat-card p {
+            font-size: 0.85rem;
+          }
+
+          .mission-grid,
           .values-grid {
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
           }
@@ -255,11 +419,34 @@ export default function QuemSomos() {
             padding: 3rem 1.5rem;
           }
 
+          .photo-wrapper {
+            max-width: 280px;
+          }
+
+          .stats-grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+          }
+
+          .stat-card {
+            padding: 1.5rem 1rem;
+          }
+
+          .stat-card h3 {
+            font-size: 2.2rem;
+          }
+
+          .stat-card p {
+            font-size: 0.9rem;
+          }
+
           .text-content h2,
+          .mission-section h2,
           .values-section h2 {
             font-size: 2rem;
           }
 
+          .mission-grid,
           .values-grid {
             grid-template-columns: 1fr;
           }

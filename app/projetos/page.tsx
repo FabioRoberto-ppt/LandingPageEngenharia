@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 export default function Projetos() {
   const [filter, setFilter] = useState("todos");
@@ -66,6 +67,7 @@ export default function Projetos() {
 
   return (
     <>
+    <WhatsAppButton />
       <Header />
       <main className="page-wrapper">
         <section className="projetos-hero">
