@@ -81,9 +81,9 @@ export default function Header() {
           </Link>
           
           <Link 
-            href="/galeria" 
-            className={isActive("/galeria") ? "active" : ""}
-            onClick={(e) => handleNavClick(e, "/galeria")}
+            href="/projetos" 
+            className={isActive("/projetos") ? "active" : ""}
+            onClick={(e) => handleNavClick(e, "/projetos")}
           >
             Projetos
           </Link>

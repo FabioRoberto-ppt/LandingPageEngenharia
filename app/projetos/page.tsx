@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 
-export default function Galeria() {
+export default function Projetos() {
   const [filter, setFilter] = useState("todos");
 
   const projetos = [
@@ -63,58 +65,62 @@ export default function Galeria() {
     : projetos.filter(p => p.category === filter);
 
   return (
-    <main className="page-wrapper">
-      <section className="galeria-hero">
-        <div className="container">
-          <h1 className="title">Nossos Projetos</h1>
-          <p className="subtitle">Conheça alguns dos trabalhos que já realizamos</p>
-        </div>
-      </section>
-
-      <section className="galeria-content">
-        <div className="container">
-          <div className="filter-buttons">
-            {categorias.map((cat) => (
-              <button
-                key={cat.id}
-                className={`filter-btn ${filter === cat.id ? "active" : ""}`}
-                onClick={() => setFilter(cat.id)}
-              >
-                {cat.label}
-              </button>
-            ))}
+    <>
+      <Header />
+      <main className="page-wrapper">
+        <section className="projetos-hero">
+          <div className="container">
+            <h1 className="title">Nossos Projetos</h1>
+            <p className="subtitle">Conheça alguns dos trabalhos que já realizamos</p>
           </div>
+        </section>
 
-          <div className="projetos-grid">
-            {projetosFiltrados.map((projeto) => (
-              <div key={projeto.id} className="projeto-card">
-                <div className="projeto-image">
-                  <img src={projeto.image} alt={projeto.title} />
-                  <div className="overlay">
-                    <h3>{projeto.title}</h3>
-                    <p>{projeto.description}</p>
-                    <span className="categoria">{projeto.category}</span>
+        <section className="projetos-content">
+          <div className="container">
+            <div className="filter-buttons">
+              {categorias.map((cat) => (
+                <button
+                  key={cat.id}
+                  className={`filter-btn ${filter === cat.id ? "active" : ""}`}
+                  onClick={() => setFilter(cat.id)}
+                >
+                  {cat.label}
+                </button>
+              ))}
+            </div>
+
+            <div className="projetos-grid">
+              {projetosFiltrados.map((projeto) => (
+                <div key={projeto.id} className="projeto-card">
+                  <div className="projeto-image">
+                    <img src={projeto.image} alt={projeto.title} />
+                    <div className="overlay">
+                      <h3>{projeto.title}</h3>
+                      <p>{projeto.description}</p>
+                      <span className="categoria">{projeto.category}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-
-          {projetosFiltrados.length === 0 && (
-            <div className="empty-state">
-              <p>Nenhum projeto encontrado nesta categoria.</p>
+              ))}
             </div>
-          )}
 
-          <div className="cta-section">
-            <h2>Quer transformar seu projeto em realidade?</h2>
-            <p>Entre em contato e vamos conversar sobre suas ideias</p>
-            <a href="#contato" className="cta-button">
-              Fale Conosco
-            </a>
+            {projetosFiltrados.length === 0 && (
+              <div className="empty-state">
+                <p>Nenhum projeto encontrado nesta categoria.</p>
+              </div>
+            )}
+
+            <div className="cta-section">
+              <h2>Quer transformar seu projeto em realidade?</h2>
+              <p>Entre em contato e vamos conversar sobre suas ideias</p>
+              <a href="#contato" className="cta-button">
+                Fale Conosco
+              </a>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
+      <Footer />
 
       <style jsx>{`
         .page-wrapper {
@@ -123,7 +129,7 @@ export default function Galeria() {
           padding-top: 80px;
         }
 
-        .galeria-hero {
+        .projetos-hero {
           background: linear-gradient(135deg, 
             rgba(212, 175, 55, 0.1) 0%,
             rgba(10, 10, 10, 0.95) 100%
@@ -154,7 +160,7 @@ export default function Galeria() {
           font-weight: 300;
         }
 
-        .galeria-content {
+        .projetos-content {
           padding: 5rem 2rem;
         }
 
@@ -353,11 +359,11 @@ export default function Galeria() {
             font-size: 2.5rem;
           }
 
-          .galeria-hero {
+          .projetos-hero {
             padding: 5rem 1.5rem 3rem;
           }
 
-          .galeria-content {
+          .projetos-content {
             padding: 3rem 1.5rem;
           }
 
@@ -388,6 +394,6 @@ export default function Galeria() {
           }
         }
       `}</style>
-    </main>
+    </>
   );
 }

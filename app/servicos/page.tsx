@@ -1,5 +1,8 @@
 "use client";
 
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+
 export default function Servicos() {
   const servicos = [
     {
@@ -41,43 +44,47 @@ export default function Servicos() {
   ];
 
   return (
-    <main className="page-wrapper">
-      <section className="servicos-hero">
-        <div className="container">
-          <h1 className="title">Nossos Serviços</h1>
-          <p className="subtitle">Soluções completas em engenharia e construção</p>
-        </div>
-      </section>
-
-      <section className="servicos-content">
-        <div className="container">
-          <div className="servicos-grid">
-            {servicos.map((servico, index) => (
-              <div key={index} className="servico-card">
-                <div className="card-icon">{servico.icon}</div>
-                <h3>{servico.title}</h3>
-                <p className="description">{servico.description}</p>
-                <ul className="items-list">
-                  {servico.items.map((item, i) => (
-                    <li key={i}>
-                      <span className="check">✓</span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+    <>
+      <Header />
+      <main className="page-wrapper">
+        <section className="servicos-hero">
+          <div className="container">
+            <h1 className="title">Nossos Serviços</h1>
+            <p className="subtitle">Soluções completas em engenharia e construção</p>
           </div>
+        </section>
 
-          <div className="cta-section">
-            <h2>Precisa de um orçamento?</h2>
-            <p>Entre em contato conosco e receba uma proposta personalizada para seu projeto</p>
-            <a href="#contato" className="cta-button">
-              Solicitar Orçamento
-            </a>
+        <section className="servicos-content">
+          <div className="container">
+            <div className="servicos-grid">
+              {servicos.map((servico, index) => (
+                <div key={index} className="servico-card">
+                  <div className="card-icon">{servico.icon}</div>
+                  <h3>{servico.title}</h3>
+                  <p className="description">{servico.description}</p>
+                  <ul className="items-list">
+                    {servico.items.map((item, i) => (
+                      <li key={i}>
+                        <span className="check">✓</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+
+            <div className="cta-section">
+              <h2>Precisa de um orçamento?</h2>
+              <p>Entre em contato conosco e receba uma proposta personalizada para seu projeto</p>
+              <a href="#contato" className="cta-button">
+                Solicitar Orçamento
+              </a>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
+      <Footer />
 
       <style jsx>{`
         .page-wrapper {
@@ -291,6 +298,6 @@ export default function Servicos() {
           }
         }
       `}</style>
-    </main>
+    </>
   );
 }

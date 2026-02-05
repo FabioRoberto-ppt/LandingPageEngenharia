@@ -1,75 +1,82 @@
 "use client";
 
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+
 export default function QuemSomos() {
   return (
-    <main className="page-wrapper">
-      <section className="quem-somos-hero">
-        <div className="container">
-          <h1 className="title">Quem Somos</h1>
-          <p className="subtitle">Excelência em engenharia e construção civil</p>
-        </div>
-      </section>
+    <>
+      <Header />
+      <main className="page-wrapper">
+        <section className="quem-somos-hero">
+          <div className="container">
+            <h1 className="title">Quem Somos</h1>
+            <p className="subtitle">Excelência em engenharia e construção civil</p>
+          </div>
+        </section>
 
-      <section className="about-content">
-        <div className="container">
-          <div className="content-grid">
-            <div className="text-content">
-              <h2>Nossa História</h2>
-              <p>
-                A Herbert Soares Engenharia é uma empresa especializada em soluções 
-                completas de engenharia civil e construção. Com anos de experiência 
-                no mercado, nos consolidamos como referência em qualidade e inovação.
-              </p>
-              <p>
-                Nossa equipe é formada por profissionais altamente qualificados, 
-                comprometidos em entregar projetos que superam as expectativas dos 
-                nossos clientes.
-              </p>
+        <section className="about-content">
+          <div className="container">
+            <div className="content-grid">
+              <div className="text-content">
+                <h2>Nossa História</h2>
+                <p>
+                  A Herbert Soares Engenharia é uma empresa especializada em soluções 
+                  completas de engenharia civil e construção. Com anos de experiência 
+                  no mercado, nos consolidamos como referência em qualidade e inovação.
+                </p>
+                <p>
+                  Nossa equipe é formada por profissionais altamente qualificados, 
+                  comprometidos em entregar projetos que superam as expectativas dos 
+                  nossos clientes.
+                </p>
+              </div>
+
+              <div className="stats-grid">
+                <div className="stat-card">
+                  <h3>15+</h3>
+                  <p>Anos de Experiência</p>
+                </div>
+                <div className="stat-card">
+                  <h3>200+</h3>
+                  <p>Projetos Concluídos</p>
+                </div>
+                <div className="stat-card">
+                  <h3>100%</h3>
+                  <p>Satisfação dos Clientes</p>
+                </div>
+              </div>
             </div>
 
-            <div className="stats-grid">
-              <div className="stat-card">
-                <h3>15+</h3>
-                <p>Anos de Experiência</p>
-              </div>
-              <div className="stat-card">
-                <h3>200+</h3>
-                <p>Projetos Concluídos</p>
-              </div>
-              <div className="stat-card">
-                <h3>100%</h3>
-                <p>Satisfação dos Clientes</p>
+            <div className="values-section">
+              <h2>Nossos Valores</h2>
+              <div className="values-grid">
+                <div className="value-card">
+                  <div className="icon">🎯</div>
+                  <h3>Qualidade</h3>
+                  <p>Comprometimento com a excelência em cada projeto</p>
+                </div>
+                <div className="value-card">
+                  <div className="icon">🤝</div>
+                  <h3>Confiança</h3>
+                  <p>Transparência e honestidade em todas as relações</p>
+                </div>
+                <div className="value-card">
+                  <div className="icon">💡</div>
+                  <h3>Inovação</h3>
+                  <p>Tecnologia e métodos modernos de construção</p>
+                </div>
+                <div className="value-card">
+                  <div className="icon">⚡</div>
+                  <h3>Eficiência</h3>
+                  <p>Prazos cumpridos e gestão otimizada de recursos</p>
+                </div>
               </div>
             </div>
           </div>
-
-          <div className="values-section">
-            <h2>Nossos Valores</h2>
-            <div className="values-grid">
-              <div className="value-card">
-                <div className="icon">🎯</div>
-                <h3>Qualidade</h3>
-                <p>Comprometimento com a excelência em cada projeto</p>
-              </div>
-              <div className="value-card">
-                <div className="icon">🤝</div>
-                <h3>Confiança</h3>
-                <p>Transparência e honestidade em todas as relações</p>
-              </div>
-              <div className="value-card">
-                <div className="icon">💡</div>
-                <h3>Inovação</h3>
-                <p>Tecnologia e métodos modernos de construção</p>
-              </div>
-              <div className="value-card">
-                <div className="icon">⚡</div>
-                <h3>Eficiência</h3>
-                <p>Prazos cumpridos e gestão otimizada de recursos</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
+      </main>
+      <Footer />
 
       <style jsx>{`
         .page-wrapper {
@@ -258,6 +265,6 @@ export default function QuemSomos() {
           }
         }
       `}</style>
-    </main>
+    </>
   );
 }
