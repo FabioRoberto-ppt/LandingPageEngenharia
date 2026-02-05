@@ -13,33 +13,33 @@ export default function Projetos() {
       id: 1,
       title: "Residência Moderna",
       category: "residencial",
-      image: "/images/projeto1.jpg",
+      image: "/images/Tambore1040final.jpeg",
       description: "Casa de alto padrão com 400m²"
     },
     {
       id: 2,
-      title: "Edifício Comercial",
-      category: "comercial",
-      image: "/images/projeto2.jpg",
-      description: "Prédio comercial de 8 andares"
+      title: "Residência Moderna",
+      category: "residencial",
+      image: "/images/Tambore10454final.jpeg",
+      description: "Casa de alto padrão com 400m²"
     },
     {
       id: 3,
       title: "Reforma de Apartamento",
-      category: "reforma",
-      image: "/images/projeto3.jpg",
-      description: "Apartamento de 120m² reformado"
+      category: "residencial",
+      image: "/images/Tambore10final.jpeg",
+      description: "Casa alto padrao com 400m²"
     },
     {
       id: 4,
-      title: "Galpão Industrial",
-      category: "industrial",
-      image: "/images/projeto4.jpg",
-      description: "Galpão de 2000m²"
+      title: "Waffle factory",
+      category: "reforma",
+      image: "/images/reforma.jpeg",
+      description: "café vila Mariana",
     },
     {
       id: 5,
-      title: "Sobrado de Luxo",
+      title: "Waffle factory",
       category: "residencial",
       image: "/images/projeto5.jpg",
       description: "Sobrado com 350m² e piscina"

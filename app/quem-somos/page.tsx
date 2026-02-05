@@ -2,10 +2,12 @@
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import WhatsAppButton from "@/components/WhatsAppButton";
 
 export default function QuemSomos() {
   return (
     <>
+      <WhatsAppButton />
       <Header />
       <main className="page-wrapper">
         <section className="quem-somos-hero">

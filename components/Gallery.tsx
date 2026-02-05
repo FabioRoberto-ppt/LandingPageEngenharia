@@ -1,72 +1,36 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const projects = [
   {
-    title: "Reforma Residencial Premium",
+    title: "Obra tabebuias, 40 condomínio Tamboré 10",
     before: "/images/Tambore1040.jpeg",
     after:  "/images/Tambore1040Final.jpeg",
   },
   {
-    title: "Construção Comercial",
+    title: "Obra tabebuias, 54 condomínio tambore 10",
     before: "/images/Tambore10.jpeg",
     after:  "/images/Tambore10final.jpeg",
   },
   {
-    title: "Modernização de Fachada",
+    title: "Obra cassias, 454 condomínio Tamboré 10",
     before: "/images/Tambore10454.jpeg",
     after: "/images/Tambore10454Final.jpeg",
   },
 ];
 
 export default function Gallery() {
-  const [percents, setPercents] = useState([50, 50, 50]);
-  const sliderRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const isDragging = useRef<number | null>(null);
-
-  const updatePercent = useCallback((index: number, clientX: number) => {
-    const el = sliderRefs.current[index];
-    if (!el) return;
-    
-    const rect = el.getBoundingClientRect();
-    const x = clientX - rect.left;
-    
-    const clampedX = Math.max(0, Math.min(x, rect.width));
-    const newPercent = (clampedX / rect.width) * 100;
-    
-    setPercents((prev) => {
-      const next = [...prev];
-      next[index] = newPercent;
-      return next;
-    });
-  }, []);
-
-  const onPointerDown = useCallback((index: number, e: React.PointerEvent) => {
-    isDragging.current = index;
-    const target = e.currentTarget as HTMLElement;
-    target.setPointerCapture(e.pointerId);
-    updatePercent(index, e.clientX);
-  }, [updatePercent]);
-
-  const onPointerMove = useCallback((e: React.PointerEvent, index: number) => {
-    if (isDragging.current === index) {
-      updatePercent(index, e.clientX);
-    }
-  }, [updatePercent]);
-
-  const onPointerUp = useCallback((e: React.PointerEvent) => {
-    if (isDragging.current !== null) {
-      const target = e.currentTarget as HTMLElement;
-      target.releasePointerCapture(e.pointerId);
-      isDragging.current = null;
-    }
-  }, []);
+  const [activeImages, setActiveImages] = useState(projects.map(() => 'before'));
 
   useEffect(() => {
-    return () => {
-      isDragging.current = null;
-    };
+    const interval = setInterval(() => {
+      setActiveImages(prev => 
+        prev.map(state => state === 'before' ? 'after' : 'before')
+      );
+    }, 3000); // Alterna a cada 3 segundos
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -79,48 +43,26 @@ export default function Gallery() {
           <div className="project-card" key={i}>
             <div className="project-title">{project.title}</div>
 
-            <div
-              className="comparison-slider"
-              ref={(el) => { sliderRefs.current[i] = el; }}
-              onPointerMove={(e) => onPointerMove(e, i)}
-              onPointerUp={onPointerUp}
-              onPointerLeave={onPointerUp}
-            >
-              {/* Camada base: Imagem "Depois" */}
-              <div className="image-layer base-layer">
+            <div className="image-wrapper">
+              <div 
+                className={`image-layer ${activeImages[i] === 'before' ? 'active' : ''}`}
+              >
+                <img 
+                  src={project.before} 
+                  alt="Antes" 
+                />
+                <span className="image-label label-left">Antes</span>
+              </div>
+
+              <div 
+                className={`image-layer ${activeImages[i] === 'after' ? 'active' : ''}`}
+              >
                 <img 
                   src={project.after} 
                   alt="Depois" 
-                  draggable={false}
                 />
+                <span className="image-label label-right">Depois</span>
               </div>
-
-              {/* Camada superior: Imagem "Antes" com clip-path */}
-              <div 
-                className="image-layer top-layer"
-                style={{ 
-                  clipPath: `polygon(0 0, ${percents[i]}% 0, ${percents[i]}% 100%, 0 100%)`,
-                }}
-              >
-                <img
-                  src={project.before}
-                  alt="Antes"
-                  draggable={false}
-                />
-              </div>
-
-              {/* Linha divisória com handle */}
-              <div
-                className="slider-line"
-                style={{ left: `${percents[i]}%` }}
-                onPointerDown={(e) => onPointerDown(i, e)}
-              >
-                <div className="slider-handle">⟷</div>
-              </div>
-
-              {/* Labels */}
-              <span className="slider-label label-before">Antes</span>
-              <span className="slider-label label-after">Depois</span>
             </div>
           </div>
         ))}
@@ -132,10 +74,13 @@ export default function Gallery() {
           background: #1a1a1a;
           position: relative;
         }
+        
         .gallery-section::before {
           content: "";
           position: absolute;
-          top: 0; left: 0; right: 0;
+          top: 0; 
+          left: 0; 
+          right: 0;
           height: 1px;
           background: linear-gradient(90deg, transparent, #d4af37, transparent);
         }
@@ -148,6 +93,7 @@ export default function Gallery() {
           margin-bottom: 1rem;
           color: #d4af37;
         }
+        
         .section-subtitle {
           text-align: center;
           font-family: "Cormorant Garamond", serif;
@@ -161,7 +107,7 @@ export default function Gallery() {
           max-width: 1400px;
           margin: 0 auto;
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
           gap: 3rem;
         }
 
@@ -171,12 +117,15 @@ export default function Gallery() {
           overflow: hidden;
           position: relative;
           transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+          border-radius: 12px;
         }
+        
         .project-card:hover {
           transform: translateY(-10px);
           border-color: #d4af37;
           box-shadow: 0 20px 60px rgba(212,175,55,0.2);
         }
+        
         .project-title {
           padding: 1.5rem;
           font-family: "Playfair Display", serif;
@@ -187,14 +136,11 @@ export default function Gallery() {
           border-bottom: 1px solid rgba(212,175,55,0.2);
         }
 
-        .comparison-slider {
+        .image-wrapper {
           position: relative;
           width: 100%;
           height: 400px;
           overflow: hidden;
-          user-select: none;
-          -webkit-user-select: none;
-          touch-action: none;
         }
 
         .image-layer {
@@ -203,109 +149,46 @@ export default function Gallery() {
           left: 0;
           width: 100%;
           height: 100%;
+          opacity: 0;
+          transition: opacity 1s ease-in-out;
+        }
+
+        .image-layer.active {
+          opacity: 1;
         }
 
         .image-layer img {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          pointer-events: none;
-          user-select: none;
-          -webkit-user-drag: none;
           display: block;
         }
 
-        .base-layer {
-          z-index: 1;
-        }
-
-        .top-layer {
-          z-index: 2;
-        }
-
-        .slider-line {
-          position: absolute;
-          top: 0;
-          width: 4px;
-          height: 100%;
-          background: #d4af37;
-          z-index: 3;
-          cursor: ew-resize;
-          box-shadow: 0 0 20px rgba(212,175,55,0.5);
-          transform: translateX(-50%);
-          will-change: left;
-        }
-
-        .slider-line::before,
-        .slider-line::after {
-          content: '';
-          position: absolute;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 2px;
-          height: 30px;
-          background: #d4af37;
-        }
-
-        .slider-line::before {
-          top: 0;
-        }
-
-        .slider-line::after {
-          bottom: 0;
-        }
-
-        .slider-handle {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 50px;
-          height: 50px;
-          background: linear-gradient(135deg, #d4af37, #b8941e);
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #0a0a0a;
-          font-weight: bold;
-          font-size: 1.4rem;
-          box-shadow: 
-            0 4px 20px rgba(212,175,55,0.6),
-            0 0 0 3px rgba(10, 10, 10, 0.3);
-          cursor: ew-resize;
-          transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .slider-handle:hover {
-          transform: translate(-50%, -50%) scale(1.1);
-          box-shadow: 
-            0 6px 25px rgba(212,175,55,0.8),
-            0 0 0 3px rgba(10, 10, 10, 0.3);
-        }
-
-        .slider-handle:active {
-          transform: translate(-50%, -50%) scale(0.95);
-        }
-
-        .slider-label {
+        .image-label {
           position: absolute;
           top: 20px;
           font-family: "Cormorant Garamond", serif;
-          font-size: 0.9rem;
+          font-size: 1rem;
           font-weight: 600;
-          padding: 0.5rem 1rem;
+          padding: 0.6rem 1.2rem;
           background: rgba(10,10,10,0.85);
           color: #d4af37;
-          z-index: 4;
           text-transform: uppercase;
           letter-spacing: 0.1em;
           border: 1px solid rgba(212,175,55,0.3);
           backdrop-filter: blur(4px);
           pointer-events: none;
+          z-index: 2;
+          border-radius: 4px;
         }
-        .label-before { left: 20px; }
-        .label-after  { right: 20px; }
+
+        .label-left {
+          left: 20px;
+        }
+
+        .label-right {
+          right: 20px;
+        }
 
         @media (max-width: 768px) {
           .gallery-section {
@@ -317,33 +200,47 @@ export default function Gallery() {
             gap: 2rem;
           }
           
-          .comparison-slider { 
+          .image-wrapper {
             height: 300px;
           }
 
-          .slider-handle {
-            width: 46px;
-            height: 46px;
-            font-size: 1.2rem;
+          .image-label {
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+            top: 15px;
           }
 
-          .slider-label {
-            font-size: 0.75rem;
-            padding: 0.4rem 0.8rem;
+          .label-left {
+            left: 15px;
           }
 
-          .label-before { left: 10px; top: 10px; }
-          .label-after  { right: 10px; top: 10px; }
+          .label-right {
+            right: 15px;
+          }
         }
 
         @media (max-width: 480px) {
-          .comparison-slider { 
+          .image-wrapper { 
             height: 250px;
           }
 
           .project-title {
             font-size: 1.2rem;
             padding: 1rem;
+          }
+
+          .image-label {
+            font-size: 0.75rem;
+            padding: 0.4rem 0.8rem;
+            top: 10px;
+          }
+
+          .label-left {
+            left: 10px;
+          }
+
+          .label-right {
+            right: 10px;
           }
         }
       `}</style>

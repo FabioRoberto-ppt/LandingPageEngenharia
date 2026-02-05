@@ -1,14 +1,18 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 export default function WhatsAppButton() {
   const [showSpotlight, setShowSpotlight] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
-    // Mostrar spotlight imediatamente quando entra no site
-    setShowSpotlight(true);
-  }, []);
+    // Mostrar spotlight apenas se estiver na home
+    if (pathname === "/") {
+      setShowSpotlight(true);
+    }
+  }, [pathname]);
 
   const closeSpotlight = () => {
     setShowSpotlight(false);
