@@ -1,10 +1,14 @@
 "use client";
 
-import { useState, useEffect, MouseEvent } from "react";
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+import type { MouseEvent } from "react";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState<boolean>(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,6 +18,10 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
+
   const scrollToSection = (id: string) => {
     const element = document.querySelector(id);
     if (element) {
@@ -22,33 +30,71 @@ export default function Header() {
     }
   };
 
+  const handleNavClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith("#")) {
+      e.preventDefault();
+      scrollToSection(href);
+    } else {
+      setMobileMenuOpen(false);
+    }
+  };
+
+  const isActive = (path: string) => {
+    if (path === "/") return pathname === "/";
+    return pathname === path;
+  };
+
   return (
     <header className={`header ${scrolled ? "scrolled" : ""}`}>
       <div className="header-bg"></div>
       
       <div className="header-container">
         <div className="logo">
-          <a href="#home" onClick={(e: MouseEvent<HTMLAnchorElement>) => { e.preventDefault(); scrollToSection("#home"); }}>
+          <Link href="/" onClick={() => setMobileMenuOpen(false)}>
             <img src="/images/Logo2.svg" alt="Herbert Soares" className="logo-image" />
-          </a>
+          </Link>
         </div>
 
         <nav className={`nav ${mobileMenuOpen ? "open" : ""}`}>
-          <a href="#home" onClick={(e: MouseEvent<HTMLAnchorElement>) => { e.preventDefault(); scrollToSection("#home"); }}>
+          <Link 
+            href="/" 
+            className={isActive("/") ? "active" : ""}
+            onClick={(e) => handleNavClick(e, "/")}
+          >
             Home
-          </a>
-          <a href="#quem-somos" onClick={(e: MouseEvent<HTMLAnchorElement>) => { e.preventDefault(); scrollToSection("#quem-somos"); }}>
+          </Link>
+          
+          <Link 
+            href="/quem-somos" 
+            className={isActive("/quem-somos") ? "active" : ""}
+            onClick={(e) => handleNavClick(e, "/quem-somos")}
+          >
             Quem Somos
-          </a>
-          <a href="#servicos" onClick={(e: MouseEvent<HTMLAnchorElement>) => { e.preventDefault(); scrollToSection("#servicos"); }}>
+          </Link>
+          
+          <Link 
+            href="/servicos" 
+            className={isActive("/servicos") ? "active" : ""}
+            onClick={(e) => handleNavClick(e, "/servicos")}
+          >
             Serviços
-          </a>
-          <a href="#galeria" onClick={(e: MouseEvent<HTMLAnchorElement>) => { e.preventDefault(); scrollToSection("#galeria"); }}>
+          </Link>
+          
+          <Link 
+            href="/galeria" 
+            className={isActive("/galeria") ? "active" : ""}
+            onClick={(e) => handleNavClick(e, "/galeria")}
+          >
             Projetos
-          </a>
-          <a href="#contato" className="nav-cta" onClick={(e: MouseEvent<HTMLAnchorElement>) => { e.preventDefault(); scrollToSection("#contato"); }}>
+          </Link>
+          
+          <Link 
+            href="#contato" 
+            className="nav-cta"
+            onClick={(e) => handleNavClick(e, "#contato")}
+          >
             Contato
-          </a>
+          </Link>
 
           <div className="social-links">
             <a 
@@ -151,7 +197,7 @@ export default function Header() {
           align-items: center;
         }
 
-        .nav a {
+        .nav :global(a) {
           font-family: "Inter", -apple-system, sans-serif;
           font-size: 0.95rem;
           font-weight: 500;
@@ -163,7 +209,7 @@ export default function Header() {
           transition: all 0.3s ease;
         }
 
-        .nav a::after {
+        .nav :global(a)::after {
           content: "";
           position: absolute;
           bottom: 0;
@@ -174,15 +220,17 @@ export default function Header() {
           transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .nav a:hover {
+        .nav :global(a:hover),
+        .nav :global(a.active) {
           color: #D4AF37;
         }
 
-        .nav a:hover::after {
+        .nav :global(a:hover)::after,
+        .nav :global(a.active)::after {
           width: 100%;
         }
 
-        .nav-cta {
+        .nav :global(.nav-cta) {
           background: linear-gradient(135deg, #D4AF37 0%, #B8941E 100%);
           color: #0A0A0A !important;
           padding: 0.75rem 1.8rem !important;
@@ -193,11 +241,11 @@ export default function Header() {
           transition: all 0.3s ease;
         }
 
-        .nav-cta::after {
+        .nav :global(.nav-cta)::after {
           display: none;
         }
 
-        .nav-cta:hover {
+        .nav :global(.nav-cta:hover) {
           transform: translateY(-2px);
           box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5);
           background: linear-gradient(135deg, #F4E4A6 0%, #D4AF37 100%);
@@ -254,7 +302,7 @@ export default function Header() {
             gap: 2rem;
           }
 
-          .nav a {
+          .nav :global(a) {
             font-size: 0.9rem;
           }
         }
@@ -289,17 +337,17 @@ export default function Header() {
             right: 0;
           }
 
-          .nav a {
+          .nav :global(a) {
             font-size: 1.1rem;
             width: 100%;
             padding: 0.8rem 0;
           }
 
-          .nav a::after {
+          .nav :global(a)::after {
             bottom: 5px;
           }
 
-          .nav-cta {
+          .nav :global(.nav-cta) {
             margin-top: 1rem;
             text-align: center;
           }
