@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, MouseEvent } from "react";
 
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState<boolean>(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,7 +14,7 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (id) => {
+  const scrollToSection = (id: string) => {
     const element = document.querySelector(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -28,25 +28,25 @@ export default function Header() {
       
       <div className="header-container">
         <div className="logo">
-          <a href="#home" onClick={(e) => { e.preventDefault(); scrollToSection("#home"); }}>
+          <a href="#home" onClick={(e: MouseEvent<HTMLAnchorElement>) => { e.preventDefault(); scrollToSection("#home"); }}>
             <img src="/images/Logo2.svg" alt="Herbert Soares" className="logo-image" />
           </a>
         </div>
 
         <nav className={`nav ${mobileMenuOpen ? "open" : ""}`}>
-          <a href="#home" onClick={(e) => { e.preventDefault(); scrollToSection("#home"); }}>
+          <a href="#home" onClick={(e: MouseEvent<HTMLAnchorElement>) => { e.preventDefault(); scrollToSection("#home"); }}>
             Home
           </a>
-          <a href="#quem-somos" onClick={(e) => { e.preventDefault(); scrollToSection("#quem-somos"); }}>
+          <a href="#quem-somos" onClick={(e: MouseEvent<HTMLAnchorElement>) => { e.preventDefault(); scrollToSection("#quem-somos"); }}>
             Quem Somos
           </a>
-          <a href="#servicos" onClick={(e) => { e.preventDefault(); scrollToSection("#servicos"); }}>
+          <a href="#servicos" onClick={(e: MouseEvent<HTMLAnchorElement>) => { e.preventDefault(); scrollToSection("#servicos"); }}>
             Serviços
           </a>
-          <a href="#galeria" onClick={(e) => { e.preventDefault(); scrollToSection("#galeria"); }}>
+          <a href="#galeria" onClick={(e: MouseEvent<HTMLAnchorElement>) => { e.preventDefault(); scrollToSection("#galeria"); }}>
             Projetos
           </a>
-          <a href="#contato" className="nav-cta" onClick={(e) => { e.preventDefault(); scrollToSection("#contato"); }}>
+          <a href="#contato" className="nav-cta" onClick={(e: MouseEvent<HTMLAnchorElement>) => { e.preventDefault(); scrollToSection("#contato"); }}>
             Contato
           </a>
 
