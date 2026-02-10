@@ -104,7 +104,7 @@ export default function Header() {
             </a>
             
             <a 
-              href="https://instagram.com/seuusuariohttps://www.instagram.com/hbtengeconstrucao?igsh=M3JhejN1Z3FoNG96&utm_source=qr" 
+              href="https://www.instagram.com/hbtengeconstrucao?igsh=M3JhejN1Z3FoNG96&utm_source=qr" 
               target="_blank" 
               rel="noopener noreferrer"
               className="social-icon instagram"
