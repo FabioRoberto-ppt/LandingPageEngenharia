@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Hebert Soares | Engenharia de Luxo",
+  title: "Hebert Soares| Engenheiro Civil ",
   description: "Construções e projetos de alto padrão",
 };
 
