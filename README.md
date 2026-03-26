@@ -1,12 +1,3 @@
-Ótimo que você usou Next.js! Isso eleva o nível do projeto, pois mostra que você se preocupa com performance (SSR/SSG), SEO e uma estrutura de pastas muito mais profissional e escalável.
-
-Aqui está a descrição atualizada para o seu GitHub, focada na stack moderna que você utilizou:
-
-1. Descrição Curta (GitHub About)
-🏗️ Landing Page de Engenharia Civil desenvolvida com Next.js. Apresentação de portfólio de obras e trajetória profissional com foco em alta performance, SEO e design institucional moderno.
-
-2. Sugestão de README.md (Focado em Next.js)
-Markdown
 # 🏗️ Engenharia Civil - Landing Page Profissional
 
 Esta é uma landing page institucional desenvolvida para um cliente do setor de engenharia. O projeto foi construído utilizando **Next.js**, garantindo uma navegação fluida, carregamento otimizado de imagens e excelente indexação em motores de busca (SEO).
