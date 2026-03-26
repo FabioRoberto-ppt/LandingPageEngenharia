@@ -1,22 +1,44 @@
-# 🏗️ Engenharia Civil - Landing Page Institucional
+Ótimo que você usou Next.js! Isso eleva o nível do projeto, pois mostra que você se preocupa com performance (SSR/SSG), SEO e uma estrutura de pastas muito mais profissional e escalável.
 
-Este projeto é uma **Landing Page profissional** desenvolvida para um cliente do setor de Engenharia Civil. O objetivo principal é consolidar a presença digital do profissional, destacando sua autoridade técnica e apresentando um portfólio visual das obras realizadas.
+Aqui está a descrição atualizada para o seu GitHub, focada na stack moderna que você utilizou:
 
-## 🎯 Objetivos do Projeto
-- **Apresentação de Portfólio:** Galeria otimizada para fotos de alta resolução de obras e projetos.
-- **Storytelling Profissional:** Seção dedicada à trajetória e formação do engenheiro.
-- **Captação de Clientes:** Botões de call-to-action (CTA) estratégicos para orçamentos.
+1. Descrição Curta (GitHub About)
+🏗️ Landing Page de Engenharia Civil desenvolvida com Next.js. Apresentação de portfólio de obras e trajetória profissional com foco em alta performance, SEO e design institucional moderno.
 
-## 🛠️ Tecnologias e Conceitos
-- **HTML5 & CSS3:** Estrutura semântica e estilização personalizada.
-- **Responsividade:** Layout adaptável para dispositivos móveis e desktops.
-- **SEO Local:** Otimização de tags para busca orgânica de serviços de engenharia.
-- **UI/UX Design:** Foco em uma paleta de cores que remete a sobriedade e segurança (azul, cinza, branco).
+2. Sugestão de README.md (Focado em Next.js)
+Markdown
+# 🏗️ Engenharia Civil - Landing Page Profissional
 
-## 📂 Organização do Projeto
-- `/assets/img`: Fotos das obras e fotos de perfil do cliente.
-- `/assets/css`: Estilos globais e componentes específicos.
-- `index.html`: Arquivo principal com seções de Home, Sobre, Obras e Contato.
+Esta é uma landing page institucional desenvolvida para um cliente do setor de engenharia. O projeto foi construído utilizando **Next.js**, garantindo uma navegação fluida, carregamento otimizado de imagens e excelente indexação em motores de busca (SEO).
 
-## 🚀 Como visualizar
-Você pode conferir o resultado final do projeto clicando no link abaixo:
+O site combina o portfólio visual das obras realizadas com o *storytelling* da trajetória profissional do engenheiro.
+
+## 🚀 Tecnologias Utilizadas
+
+- **Next.js:** Framework React para produção, utilizado para roteamento e otimização de performance.
+- **Componentização:** UI dividida em componentes reutilizáveis (HeroSection, Gallery, About, Contact).
+- **Next/Image:** Gerenciamento e otimização automática das fotos das obras (Lazy Loading e WebP).
+- **CSS Modules / Tailwind CSS:** (escolha o que usou) Estilização moderna e responsiva.
+- **Lucide React / Icons:** Conjunto de ícones leves para a interface.
+
+## ✨ Funcionalidades
+
+- **Galeria de Obras:** Exibição dinâmica de projetos concluídos com foco em impacto visual.
+- **Seção Biográfica:** Espaço dedicado à história, certificações e autoridade do engenheiro.
+- **Performance:** Pontuação otimizada no Core Web Vitals graças ao pré-renderizado do Next.js.
+- **Design Responsivo:** Experiência impecável em dispositivos móveis, tablets e desktops.
+
+## 📂 Estrutura do Projeto
+
+- `/src/components`: Componentes modulares da interface (Header, Footer, HeroSection).
+- `/src/app` (ou `/pages`): Estrutura de rotas e organização da página principal.
+- `/public`: Ativos estáticos como logos e fotos de obras em alta qualidade.
+
+## 🛠️ Como rodar o projeto localmente
+
+1. Clone o repositório:
+   ```bash
+
+2. link do site a baixo:
+https://herbert-soares-engenharia-e-construcao.vercel.app/
+   
